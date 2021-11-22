@@ -1,0 +1,130 @@
+//Dll
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next,*prev;
+}*start=NULL;
+void insertend()
+{
+    struct node*nn,*t=start;
+    nn=(struct node*)malloc(sizeof(struct node));
+    scanf("%d",&nn->data);
+    nn->next=nn->prev=NULL;
+    if(start==NULL)
+    {
+        start=nn;
+    }
+    else
+    {
+        while(t->next!=NULL)
+        {
+            t=t->next;
+        }
+        t->next=nn;
+        nn->prev=t;
+    }
+}
+void deletefront()
+{
+    struct node *t=start;
+    if(start==NULL)
+    {
+     //EMPTY   
+    }
+    else
+    {
+        if(start->next==NULL)
+        {
+            start=NULL;
+            free(t);
+        }
+        else
+        {
+        start=start->next;
+        free(t);
+        start->prev=NULL;
+        }
+    }
+}
+void deleteend()
+{
+    struct node *t=start;
+    if(start==NULL)
+    {
+        //EMPTY
+    }
+    else
+    {
+        if(start->next==NULL)
+        {
+            start=NULL;
+            free(t);
+        }
+        else
+        {
+          while(t->next!=NULL)
+          {
+              t=t->next;
+          }
+          t->prev->next=NULL;
+          t->prev=NULL;
+          free(t);
+        }
+    }
+}
+void deletepos()
+{
+    struct node *t=start;
+    int count=1,x;
+    scanf("%d",&x);
+    while(count!=x && t!=NULL)
+    {
+        t=t->next;
+        count++;
+    }
+    t->prev->next=t->next;
+    t->next->prev=t->next;
+    t->next=t->prev=NULL;
+    free(t);
+}
+void display()
+{
+    struct node *t=start;
+    if(start==NULL)
+    {
+        //EMPTY
+    }
+    else
+    {
+        while(t!=NULL)
+        {
+            printf("%d \t",t->data);
+            t=t->next;
+        }
+    }
+}
+int main()
+{
+    int n,i;
+    int a;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        insertend();
+    }
+    do
+    {
+        scanf("%d",&a);
+        switch(a)
+        {
+            case 1:deletefront();break;
+            case 2:deleteend();break;
+            case 3:deletepos();break;
+            case 4:display();break;
+            case 5:exit(0);break;
+            default:printf("Wrong Choice");break;
+        }
+    }while(a!=5);
+}
