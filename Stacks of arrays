@@ -23,7 +23,7 @@ case 2:if(top==-1)
 	printf("\nstack underflow");
 	break;
 	}
-	printf("element poped is %d",stk[top--]);
+	printf("element poped is %d",stack[top--]);
 	break;
 case 3:for(i=0;i<=top;i++)
 	printf("%d   ",stack[i]);
